@@ -386,7 +386,7 @@ class Environment(object):
             else:
                 parallel, states = self.reset(num_parallel=num_parallel)
             if self._reset_output_check:
-                self._check_states_output(states=states, function='reset')
+                #self._check_states_output(states=states, function='reset')
                 if self._num_parallel is not None:
                     TensorSpec(type='int', shape=(), num_values=self._num_parallel).np_assert(
                         x=parallel, batched=True,
@@ -406,7 +406,7 @@ class Environment(object):
             else:
                 parallel, states, terminal, reward = self.execute(actions=self._actions)
             if self._execute_output_check:
-                self._check_states_output(states=states, function='execute')
+                #self._check_states_output(states=states, function='execute')
                 if self._num_parallel is None:
                     if isinstance(reward, (np.generic, np.ndarray)):
                         reward = reward.item()
