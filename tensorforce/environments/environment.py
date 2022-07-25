@@ -465,7 +465,7 @@ class Environment(object):
                 elif not name.endswith('_mask'):
                     raise TensorforceError(function + ': invalid component {name} for state.')
         states_spec.np_assert(
-            x=_states, batched=(self._num_parallel is not None),
+            x=_states, batched=False,
             message=(function + ': invalid {issue} for {name} state.')
         )
 
