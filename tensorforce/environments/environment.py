@@ -532,11 +532,8 @@ class EnvironmentWrapper(Environment):
             parallel, states = self._environment.reset(num_parallel=num_parallel)
             self._num_parallel = num_parallel
         if self._reset_output_check:
-            if self._num_parallel is None: 
-                self._check_states_output(states=states, function='reset')
-            else:  
-                for sub_states in states:
-                    self._check_states_output(states=sub_states, function='reset')
+            if self._num_parallel is not None: 
+                #self._check_states_output(states=states, function='reset')
                 TensorSpec(type='int', shape=(), num_values=self._num_parallel).np_assert(
                     x=parallel, batched=True,
                     message=('Environment.reset: invalid {issue} for parallel.')
@@ -560,7 +557,7 @@ class EnvironmentWrapper(Environment):
         else:
             parallel, states, terminal, reward = self._environment.execute(actions=actions)
         if self._execute_output_check:
-            self._check_states_output(states=states, function='execute')
+            #self._check_states_output(states=states, function='execute')
             if self._num_parallel is None:
                 if isinstance(reward, (np.generic, np.ndarray)):
                     reward = reward.item()
