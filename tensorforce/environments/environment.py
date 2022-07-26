@@ -680,13 +680,16 @@ class RemoteEnvironment(Environment):
     ):
         try:
             env = None
+            print("Try to create remote env")
             env = Environment.create(
                 environment=environment, max_episode_timesteps=max_episode_timesteps,
                 reward_shaping=reward_shaping, **kwargs
             )
+            print("Remote env created")
 
             while True:
                 attribute, kwargs = cls.remote_receive(connection=connection)
+                print("receive, attr:", attribute)
 
                 if attribute in ('reset', 'execute'):
                     environment_start = time.time()
@@ -718,7 +721,9 @@ class RemoteEnvironment(Environment):
                     else:
                         result += (seconds,)
 
+                print("pre send")
                 cls.remote_send(connection=connection, success=True, result=result)
+                print("post send")
 
                 if attribute == 'close':
                     break
