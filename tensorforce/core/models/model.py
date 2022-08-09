@@ -921,6 +921,9 @@ class Model(Module):
             if filename is None:
                 path = tf.train.latest_checkpoint(checkpoint_dir=directory)
                 if not path:
+                    print('Expecting checkpoint_dir=', directory)
+                    print('Current dir:', os.listdir('.'))
+                    print('Available:', os.listdir(directory))
                     raise TensorforceError.exists_not(name='Checkpoint', value=directory)
                 _directory, filename = os.path.split(path)
                 assert _directory == directory
